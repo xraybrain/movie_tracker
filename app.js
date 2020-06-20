@@ -19,6 +19,7 @@ app.set('views', VIEW_DIR);
 
 //-- Routes SETUP
 require('./server/routes/index')(app);
+require('./server/routes/api')(app);
 
 app.listen(PORT, () => {
   console.log(`server is listening on port ::${PORT}`);

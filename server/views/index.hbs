@@ -1,39 +1,10 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a href="" class="navbar-brand text-warning">
-    MovieTracker
-  </a>
-  <button class="navbar-toggler" data-toggle="collapse" data-target="#navigator">
-    <span class="line-1"></span>
-    <span class="line-1"></span>
-    <span class="line-1"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navigator">
-    <ul class="navbar-nav ml-auto px-3">
-      <li class="nav-item">
-        <a href="" class="nav-link font-weight-bold text-light">
-          <i class="fas fa-home text-warning mr-1"></i>
-          HOME
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="" class="nav-link font-weight-bold text-light">
-          <i class="fas fa-info-circle text-warning mr-1"></i>
-          ABOUT
-        </a>
-      </li>
-    </ul>
-  </div>
-</nav>
-
-
 <div class="container-fluid py-5">
   <div class="row">
     <div class="col-11 col-sm-10 col-md-9 col-lg-8 col-xl-6 mx-auto">
       <!-- Movie Searcher -->
-      <form action="" method="POST">
-        <div class="form-group input-group">
-          <input type="search" name="searchQuery" class="form-control" placeholder="Search for a movie by title"
+      <form action="" method="POST" id="search-form">
+        <div class="form-group input-group shadow">
+          <input type="search" name="searchtext" class="form-control" placeholder="Search for a movie by title"
             autocomplete="off" />
           <span class="input-group-append">
             <button class="input-group-text text-uppercase font-weight-bold bg-warning">
@@ -52,11 +23,94 @@
   <div class="row">
     <div class="col-12">
       <h5>search result:</h5>
-      <div class="card shadow">
+      <div class="card shadow mb-2" id="search-result-box">
         <div class="card-body">
+
+          <div class="row" id="result-pane"></div>
 
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<script type="mustache/template" id="movies-template">
+\{{#results}}
+  <div class="col-10 col-sm-6 col-md-3 mb-2 mx-auto">
+    <a href="#" data-toggle="modal" data-target="#movie-\{{id}}" class="link">
+      <div class="card shadow">
+      <img src="\{{poster_path}}" alt="movie poster" class="card-img-top" style="height: 200px;">
+      <div class="card-body">
+        
+        <div class="text-center box">
+          <h5 class="mb-1">\{{title}}</h5>
+          <h6>
+            Ratings 
+                <i class="fas fa-star text-warning"></i> 
+                <i class="fas fa-star text-warning"></i> 
+                <i class="fas fa-star text-warning"></i> 
+              (\{{vote_average}})
+          </h6>
+        </div>
+      </div>
+    </div>
+    </a>
+    <div class="modal fade" id="movie-\{{id}}">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="w-100 text-center">
+              <img src="\{{poster_path}}" alt="movie poster" class="img-fluid" style="width: 90%; height: 300px; margin: 0 auto;"/>
+            </div>
+
+            <div class="my-2 p-3 shadow">
+              <h5>
+                Movie
+                <i class="fas fa-film text-danger"></i>
+              </h5>
+              <p>\{{title}}</p>
+            </div>
+
+            <div class="mb-2 p-3 shadow">
+              <h5>Description</h5>
+              <p>\{{overview}}</p>
+            </div>
+
+            <div class="mb-2 p-3 shadow">
+              <h5>Date Released
+                <i class="fas fa-calendar text-danger"></i>: 
+                (\{{release_date}})
+              </h5>
+              
+            </div>
+
+            <div class="mb-2 p-3 shadow">
+              <h5>Ratings 
+                <i class="fas fa-star text-warning"></i> 
+                <i class="fas fa-star text-warning"></i> 
+                <i class="fas fa-star text-warning"></i> 
+              (\{{vote_average}})</h5>
+              
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+\{{/results}}
+\{{^results}}
+<div class="col-3 mx-auto my-5 text-center">
+  <i class="fas fa-info-circle fa-3x text-muted"></i>
+  <p class="mt-1">
+    no movie found, try entering the full name of the movie.
+  </p>
+</div>
+\{{/results}}
+</script>
+
+<script type="mustache/template" id="loading-template">
+<div class="loading">
+  <img src="/img/loading.gif" alt="loading anime">
+</div>
+</script>

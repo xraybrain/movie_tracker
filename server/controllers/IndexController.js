@@ -3,3 +3,9 @@ exports.showHomepage = (req, res, next) => {
     pageTitle: 'Movie Tracker',
   });
 };
+
+exports.showAboutPage = (req, res, next) => {
+  res.render('about', {
+    pageTitle: 'About Movie Tracker',
+  });
+};
